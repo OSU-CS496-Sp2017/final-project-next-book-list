@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+implements GoodReadsSearchAdapter.OnSearchResultClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SEARCH_URL_KEY = "goodReadsURL";
