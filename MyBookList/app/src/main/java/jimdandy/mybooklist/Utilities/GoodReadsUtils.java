@@ -42,6 +42,11 @@ public class GoodReadsUtils {
     }
 
     public static ArrayList<SearchResult> parseGoodReadsSearchResultsXML(String searchResultsXML) {
-
+        SearchResult test = new SearchResult();
+        test.title = "Naznok";
+        test.author = "Slingsquid";
+        ArrayList<SearchResult> list = new ArrayList<SearchResult>();
+        list.add(test);
+        return list;
     }
 }

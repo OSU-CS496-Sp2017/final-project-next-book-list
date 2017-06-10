@@ -62,7 +62,7 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
         }
 
         public void bind(GoodReadsUtils.SearchResult searchResult) {
-            mSearchResultTV.setText(searchResult.fullName);
+            mSearchResultTV.setText("placeholder"/*searchResult.fullName*/);
         }
 
         @Override
