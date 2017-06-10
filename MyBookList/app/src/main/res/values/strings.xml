@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyBookList</string>
+    <string name="app_description">A place for tracking good reads</string>
+    <string name="app_error_message">Error loading data. Yikes!</string>
+</resources>
