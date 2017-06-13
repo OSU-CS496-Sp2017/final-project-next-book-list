@@ -1,5 +1,7 @@
 package jimdandy.mybooklist.Utilities;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
@@ -14,9 +16,10 @@ public class NetworkUtils {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        Response response = mHTTPClient.newCall(request).execute();
+            Response response = mHTTPClient.newCall(request).execute();
 
         try {
+            Log.d("NETWORK CALL: ", "RESPONSE RETRIEVED");
             return response.body().string();
         } finally {
             response.close();

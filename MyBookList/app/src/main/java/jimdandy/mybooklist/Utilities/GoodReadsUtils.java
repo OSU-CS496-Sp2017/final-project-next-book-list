@@ -2,7 +2,9 @@ package jimdandy.mybooklist.Utilities;
 
 import android.util.Log;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -47,29 +49,39 @@ public class GoodReadsUtils {
         urlBuilder.addQueryParameter(GOODREADS_SEARCH_QUERY_PARAM, searchTerm);
         urlBuilder.addQueryParameter(GOODREADS_SEARCH_KEY_PARAM, GOODREADS_SEARCH_KEY);
         String url = urlBuilder.build().toString();
-        Log.d("MAIN", "URL: " + url);
         return url;
 
     }
 
     public static ArrayList<SearchResult> parseGoodReadsSearchResultsXML(String searchResultsXML) {             //!!
+        ArrayList<SearchResult> formattedResultsList = new ArrayList<SearchResult>();
 
-//        try {
-//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 //            factory.setIgnoringComments(true);
 //            factory.setIgnoringElementContentWhitespace(true);
 //            factory.setValidating(true);
-//            DocumentBuilder builder = factory.newDocumentBuilder();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            InputStream searchResultsStream = new ByteArrayInputStream(searchResultsXML.getBytes("UTF-8"));
+            Document xml = builder.parse(searchResultsStream);
+
+            NodeList worksList = xml.getElementsByTagName("work");
+            Log.d("PARSER: ", "NUMBER OF WORKS: " + worksList.getLength());
+
+            // EVAN WORKING ON THIS
+
+//            for (int i = 0; i < worksList.getLength(); i++) {
 //
-//            Document xml = builder.parse(new InputSource(searchResultsXML));
-//
-//            Log.d("PARSER: ", "ROOT: " + xml.getDocumentElement());
-//
-//            //          FINISH PARSER
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//                Node workNode = worksList.item(i);
+//                Element
+//            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         SearchResult test = new SearchResult();
         test.title = "Naznok";

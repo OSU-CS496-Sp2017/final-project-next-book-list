@@ -132,7 +132,9 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                     String searchResults = null;
                     try {
                         searchResults = NetworkUtils.doHTTPGet(goodReadsSearchUrl);
+                        Log.d(TAG, "HTTP GET RESPONSE: " + searchResults);
                     } catch (IOException e) {
+                        Log.d(TAG, "LOAD IN BACKGROUND CATCH BLOCK TRIGGERED");
                         e.printStackTrace();
                     }
                     return searchResults;
