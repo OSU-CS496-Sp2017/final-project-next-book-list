@@ -1,9 +1,16 @@
 package jimdandy.mybooklist.Utilities;
 
+import android.util.Log;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import okhttp3.HttpUrl;
+
+import org.xml.sax.*;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
 
 /*
     PARAMETERS for a search
@@ -11,6 +18,9 @@ import okhttp3.HttpUrl;
     page: Which page to return (default 1, optional)
     key: Developer key (required).
     search[field]: Field to search, one of 'title', 'author', or 'all' (default is 'all')
+
+    xml nesting:
+    search -> results -> works
  */
 
 
@@ -37,11 +47,30 @@ public class GoodReadsUtils {
         urlBuilder.addQueryParameter(GOODREADS_SEARCH_QUERY_PARAM, searchTerm);
         urlBuilder.addQueryParameter(GOODREADS_SEARCH_KEY_PARAM, GOODREADS_SEARCH_KEY);
         String url = urlBuilder.build().toString();
+        Log.d("MAIN", "URL: " + url);
         return url;
 
     }
 
-    public static ArrayList<SearchResult> parseGoodReadsSearchResultsXML(String searchResultsXML) {
+    public static ArrayList<SearchResult> parseGoodReadsSearchResultsXML(String searchResultsXML) {             //!!
+
+//        try {
+//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//            factory.setIgnoringComments(true);
+//            factory.setIgnoringElementContentWhitespace(true);
+//            factory.setValidating(true);
+//            DocumentBuilder builder = factory.newDocumentBuilder();
+//
+//            Document xml = builder.parse(new InputSource(searchResultsXML));
+//
+//            Log.d("PARSER: ", "ROOT: " + xml.getDocumentElement());
+//
+//            //          FINISH PARSER
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         SearchResult test = new SearchResult();
         test.title = "Naznok";
         test.author = "Slingsquid";

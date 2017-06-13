@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,21 +49,33 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
         holder.bind(mSearchResultsList.get(position));
     }
 
-    public interface OnSearchResultClickListener {
+    public interface OnSearchResultClickListener {          //!!
         void onSearchResultClick(GoodReadsUtils.SearchResult searchResult);
     }
 
     class SearchResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mSearchResultTV;
+        private LinearLayout searchResultLayout;
+        private TextView mTitle;
+        private TextView mAuthor;
+        private TextView mPubDate;
+        private TextView mAvgRating;
 
-        public SearchResultViewHolder(View itemView) {
+        public SearchResultViewHolder(View itemView) {      //!!
             super(itemView);
-            mSearchResultTV = (TextView)itemView.findViewById(R.id.tv_search_result);
-            itemView.setOnClickListener(this);
+            mTitle = (TextView)itemView.findViewById(R.id.tv_search_result_title);
+            mAuthor = (TextView)itemView.findViewById(R.id.tv_search_result_author);
+            mPubDate = (TextView)itemView.findViewById(R.id.tv_search_result_pub_date);
+            mAvgRating = (TextView)itemView.findViewById(R.id.tv_search_result_avg_rating);
+
+            searchResultLayout = (LinearLayout) itemView.findViewById(R.id.ll_search_result);
+            searchResultLayout.setOnClickListener(this);
         }
 
-        public void bind(GoodReadsUtils.SearchResult searchResult) {
-            mSearchResultTV.setText("placeholder"/*searchResult.fullName*/);
+        public void bind(GoodReadsUtils.SearchResult searchResult) {        //!!
+            mTitle.setText(searchResult.title);
+            mAuthor.setText(searchResult.author);
+            mPubDate.setText(searchResult.publicationDate);
+            mAvgRating.setText(String.valueOf(searchResult.avgRating));
         }
 
         @Override

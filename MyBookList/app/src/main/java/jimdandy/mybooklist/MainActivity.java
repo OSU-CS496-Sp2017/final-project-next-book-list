@@ -28,11 +28,15 @@ import jimdandy.mybooklist.Utilities.NetworkUtils;
 
 /**
             TODO:
-            1. FORMAT layout - search_result_view
+            1. FORMAT layout - search_result_view & FORMAT GoodReadsUtils SearchResult object
+
             2. Make correct call to GoodReads and ensure XML is returned
+
             3. Make parser for returned XML
-            4. FORMAT GoodReadsUtils SearchResult object
-            5. PLUG IN results to MainActivity - finish asyncloader shit
+
+            4. PLUG IN results to MainActivity - finish asyncloader shit
+
+            SEARCH '!!' to find spots in code that need attention/have potential issues
  */
 
 
@@ -62,11 +66,11 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         mSearchResultsRV.setLayoutManager(new LinearLayoutManager(this));
         mSearchResultsRV.setHasFixedSize(true);
 
-        mGoodReadsSearchAdapter = new GoodReadsSearchAdapter(this);     //RE ADD 'this'
+        mGoodReadsSearchAdapter = new GoodReadsSearchAdapter(this);
         mSearchResultsRV.setAdapter(mGoodReadsSearchAdapter);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);        //!!
+//        getSupportActionBar().setHomeButtonEnabled(true);
 
         getSupportLoaderManager().initLoader(GOODREADS_SEARCH_LOADER_ID, null, this);
 
@@ -83,8 +87,8 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
     }
 
     private void doGoodReadsSearch(String searchQuery) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Resources resources = getResources();
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);        //!!
+//        Resources resources = getResources();
 
         String goodReadsSearchUrl = GoodReadsUtils.buildGoodReadsSearchURL(searchQuery);
         Log.d(TAG, "doGoodReadsSearch building URL: " + goodReadsSearchUrl);
@@ -153,6 +157,7 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
             mSearchResultsRV.setVisibility(View.VISIBLE);
             ArrayList<GoodReadsUtils.SearchResult> searchResultsList = GoodReadsUtils.parseGoodReadsSearchResultsXML(data);
+            Log.d(TAG, searchResultsList.get(0).title + " " + searchResultsList.get(0).author);
             mGoodReadsSearchAdapter.updateSearchResults(searchResultsList);
         } else {
             mSearchResultsRV.setVisibility(View.INVISIBLE);
@@ -162,18 +167,8 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-
+        // nada, nichts, nothing
     }
-
-//        String URL = GoodReadsUtils.buildGoodReadsSearchURL("Leibowitz");
-//        Log.d(TAG, URL);
-//        try {
-//            String response = NetworkUtils.doHTTPGet(URL);
-//            Log.d(TAG, response);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
 
 }
 
