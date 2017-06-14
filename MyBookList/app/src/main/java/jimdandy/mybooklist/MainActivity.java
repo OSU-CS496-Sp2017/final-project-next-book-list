@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -52,12 +54,14 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
     private ProgressBar mLoadingIndicatorPB;
     private TextView mLoadingErrorMessageTV;
     private GoodReadsSearchAdapter mGoodReadsSearchAdapter;
+    private View mMainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mMainLayout = (View) findViewById(R.id.ll_main);
         mSearchBoxET = (EditText) findViewById(R.id.et_search_box);
         mLoadingIndicatorPB = (ProgressBar) findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = (TextView) findViewById(R.id.tv_loading_error_message);
@@ -68,6 +72,16 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
 
         mGoodReadsSearchAdapter = new GoodReadsSearchAdapter(this);
         mSearchResultsRV.setAdapter(mGoodReadsSearchAdapter);
+
+        mMainLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {        //!!
+            @Override
+            public void onSwipeRight() {
+                Log.d(TAG, "SWIPE RIGHT DETECTED");
+                Intent listIntent = new Intent(MainActivity.this, BookListActivity.class);
+                startActivity(listIntent);
+
+            }
+        });
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);        //!!
 //        getSupportActionBar().setHomeButtonEnabled(true);
@@ -84,12 +98,10 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                 }
             }
         });
+
     }
 
     private void doGoodReadsSearch(String searchQuery) {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);        //!!
-//        Resources resources = getResources();
-
         String goodReadsSearchUrl = GoodReadsUtils.buildGoodReadsSearchURL(searchQuery);
         Log.d(TAG, "doGoodReadsSearch building URL: " + goodReadsSearchUrl);
 
