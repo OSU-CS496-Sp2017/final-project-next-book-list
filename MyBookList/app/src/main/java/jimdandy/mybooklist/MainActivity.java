@@ -132,7 +132,6 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                     String searchResults = null;
                     try {
                         searchResults = NetworkUtils.doHTTPGet(goodReadsSearchUrl);
-                        Log.d(TAG, "HTTP GET RESPONSE: " + searchResults);
                     } catch (IOException e) {
                         Log.d(TAG, "LOAD IN BACKGROUND CATCH BLOCK TRIGGERED");
                         e.printStackTrace();
@@ -159,7 +158,7 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
             mSearchResultsRV.setVisibility(View.VISIBLE);
             ArrayList<GoodReadsUtils.SearchResult> searchResultsList = GoodReadsUtils.parseGoodReadsSearchResultsXML(data);
-            Log.d(TAG, searchResultsList.get(0).title + " " + searchResultsList.get(0).author);
+            Log.d(TAG, "FIRST BOOK IN LIST RETURNED: " + searchResultsList.get(0).title + " " + searchResultsList.get(0).author);
             mGoodReadsSearchAdapter.updateSearchResults(searchResultsList);
         } else {
             mSearchResultsRV.setVisibility(View.INVISIBLE);

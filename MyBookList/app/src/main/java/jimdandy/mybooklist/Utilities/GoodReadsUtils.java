@@ -39,9 +39,10 @@ public class GoodReadsUtils {
         public String title;
         public String author;
         public String publicationDate;
-        public String description;
-        public double avgRating;
-        public String imageURL;
+        public String avgRating;
+        public String largeImageURL;
+        public String smallImageURL;
+
     }
 
     public static String buildGoodReadsSearchURL(String searchTerm) {
@@ -69,25 +70,128 @@ public class GoodReadsUtils {
             NodeList worksList = xml.getElementsByTagName("work");
             Log.d("PARSER: ", "NUMBER OF WORKS: " + worksList.getLength());
 
-            // EVAN WORKING ON THIS
+            for (int i = 0; i < worksList.getLength(); i++) {
 
-//            for (int i = 0; i < worksList.getLength(); i++) {
-//
-//                Node workNode = worksList.item(i);
-//                Element
-//            }
+                SearchResult searchResult = new SearchResult();
+                Element workElement = (Element)worksList.item(i);
+
+                //      PUBLICATION DATE
+                NodeList pubDayList = workElement.getElementsByTagName("original_publication_month");
+                NodeList pubMonthList = workElement.getElementsByTagName("original_publication_month");
+                NodeList pubYearList = workElement.getElementsByTagName("original_publication_year");
+
+                Element pubDayElement = (Element)pubDayList.item(0);
+                Node pubDayNode = pubDayElement.getChildNodes().item(0);
+                String pubDay = "";
+                if (pubDayNode != null) {
+                    pubDay = pubDayNode.getNodeValue();
+                }
+
+                Element pubMonthElement = (Element)pubMonthList.item(0);
+                Node pubMonthNode = pubMonthElement.getChildNodes().item(0);
+                String pubMonth = "";
+                if (pubMonthNode != null) {
+                    pubMonth = pubMonthNode.getNodeValue();
+                }
+
+                Element pubYearElement = (Element)pubYearList.item(0);
+                Node pubYearNode = pubYearElement.getChildNodes().item(0);
+                String pubYear = "";
+                if (pubMonthNode != null) {
+                    pubYear = pubYearNode.getNodeValue();
+                }
+
+                String fullPubDate = "";
+                if (pubDay != "") {
+                    fullPubDate += pubDay + "/";
+                }
+                if (pubMonth != "") {
+                    fullPubDate += pubMonth + "/";
+                }
+                if (pubYear != "") {
+                    fullPubDate += pubYear;
+                }
+
+                searchResult.publicationDate = fullPubDate;
 
 
+                //      AVERAGE RATING
+                NodeList avgRatingList = workElement.getElementsByTagName("average_rating");
 
+                Element avgRatingElement = (Element)avgRatingList.item(0);
+                Node avgRatingNode = avgRatingElement.getChildNodes().item(0);
+                String avgRatingValue = "unrated";
+                if (avgRatingNode != null) {
+                    avgRatingValue = String.valueOf(avgRatingNode.getNodeValue());
+                }
+
+                searchResult.avgRating = avgRatingValue;
+
+
+                //*** These are used for all of the remaining values
+                NodeList bestBookList = workElement.getElementsByTagName("best_book");
+                Element bestBook = (Element)bestBookList.item(0);
+                ////*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+
+
+                //      TITLE
+                NodeList titleList = bestBook.getElementsByTagName("title");
+                Element titleElement = (Element)titleList.item(0);
+                Node titleNode = titleElement.getChildNodes().item(0);
+                String titleValue = "no title";
+                if (titleNode != null) {
+                    titleValue = titleNode.getNodeValue();
+                }
+
+                searchResult.title = titleValue;
+
+
+                //      AUTHOR
+                NodeList nameList = bestBook.getElementsByTagName("name");
+                Element nameElement = (Element)nameList.item(0);
+                Node nameNode = nameElement.getChildNodes().item(0);
+                String authorName = "unknown author";
+                if (nameNode != null) {
+                    authorName = nameNode.getNodeValue();
+                }
+
+                searchResult.author = authorName;
+
+                //      URLS
+                NodeList URLList = bestBook.getElementsByTagName("image_url");
+                Element URLElement = (Element)URLList.item(0);
+                Node URLNode = URLElement.getChildNodes().item(0);
+                String url = "";
+                if (URLNode != null) {
+                    url = URLNode.getNodeValue();
+                }
+
+                searchResult.largeImageURL = url;
+
+
+                NodeList smallURLList = bestBook.getElementsByTagName("small_image_url");
+                Element smallURLElement = (Element)smallURLList.item(0);
+                Node smallURLNode = smallURLElement.getChildNodes().item(0);
+                url = "";
+                if (smallURLNode != null) {
+                    url = smallURLNode.getNodeValue();
+                }
+
+                searchResult.smallImageURL = url;
+
+
+                // BUILD RETURN LIST
+                Log.d("UTILS: ", searchResult.title + " by " + searchResult.author +
+                        " published: " + searchResult.publicationDate +
+                        " with an average rating of " + searchResult.avgRating + "\n" +
+                        "URLs at: " + searchResult.largeImageURL + " and " + searchResult.smallImageURL
+                );
+                formattedResultsList.add(searchResult);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        SearchResult test = new SearchResult();
-        test.title = "Naznok";
-        test.author = "Slingsquid";
-        ArrayList<SearchResult> list = new ArrayList<SearchResult>();
-        list.add(test);
-        return list;
+        return formattedResultsList;
     }
 }
