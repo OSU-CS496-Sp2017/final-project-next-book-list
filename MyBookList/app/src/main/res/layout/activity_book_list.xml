@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="jimdandy.mybooklist.BookListActivity">
 
+    <TextView
+        android:id="@+id/tv_book_list_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="22dp"
+        android:text="@string/app_description"/>
+
+
 </android.support.constraint.ConstraintLayout>
