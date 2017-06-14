@@ -59,6 +59,8 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
         private TextView mAuthor;
         private TextView mPubDate;
         private TextView mAvgRating;
+        private TextView mBookImage;
+
 
         public SearchResultViewHolder(View itemView) {      //!!
             super(itemView);
@@ -66,16 +68,19 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
             mAuthor = (TextView)itemView.findViewById(R.id.tv_search_result_author);
             mPubDate = (TextView)itemView.findViewById(R.id.tv_search_result_pub_date);
             mAvgRating = (TextView)itemView.findViewById(R.id.tv_search_result_avg_rating);
+            mBookImage = (TextView)itemView.findViewById(R.id.tv_search_result_book_image);
 
-            searchResultLayout = (LinearLayout) itemView.findViewById(R.id.ll_search_result);
-            searchResultLayout.setOnClickListener(this);
+            mTitle.setOnClickListener(this);
+            //searchResultLayout = (LinearLayout) itemView.findViewById(R.id.ll_search_result);
+            //searchResultLayout.setOnClickListener(this);
         }
 
         public void bind(GoodReadsUtils.SearchResult searchResult) {        //!!
             mTitle.setText(searchResult.title);
             mAuthor.setText(searchResult.author);
             mPubDate.setText(searchResult.publicationDate);
-            mAvgRating.setText(String.valueOf(searchResult.avgRating));
+            mAvgRating.setText(searchResult.avgRating);
+            mBookImage.setText(searchResult.smallImageURL);
         }
 
         @Override
