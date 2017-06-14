@@ -33,6 +33,8 @@ public class GoodReadsUtils {
     private final static String GOODREADS_SEARCH_KEY_PARAM = "key";
     private final static String GOODREADS_SEARCH_KEY = "hyjexwpae21tTWdLAXhBw";
 
+    private final static String GOODREADS_VIEW_BOOK_ON_WEB_BASE_URL = "https://www.goodreads.com/book/show/";
+
 
     public static class SearchResult implements Serializable {
         public static final String EXTRA_SEARCH_RESULT = "GoodReadsUtils.SearchResult";
@@ -42,6 +44,7 @@ public class GoodReadsUtils {
         public String avgRating;
         public String largeImageURL;
         public String smallImageURL;
+        public String goodReadsBeskBookID;
 
     }
 
@@ -53,6 +56,13 @@ public class GoodReadsUtils {
         return url;
 
     }
+
+    public static String buildGoodReadsViewBookOnWebURL(SearchResult searchResult) {
+        String url = GOODREADS_VIEW_BOOK_ON_WEB_BASE_URL + searchResult.goodReadsBeskBookID + "." +
+                searchResult.title;
+        return url;
+    }
+
 
     public static ArrayList<SearchResult> parseGoodReadsSearchResultsXML(String searchResultsXML) {             //!!
         ArrayList<SearchResult> formattedResultsList = new ArrayList<SearchResult>();
@@ -178,6 +188,18 @@ public class GoodReadsUtils {
                 }
 
                 searchResult.smallImageURL = url;
+
+
+                //      ID
+                NodeList IDList = bestBook.getElementsByTagName("id");
+                Element IDElement = (Element)IDList.item(0);
+                Node IDNode = IDElement.getChildNodes().item(0);
+                String IDValue = "";
+                if (IDNode != null) {
+                    IDValue = IDNode.getNodeValue();
+                }
+
+                searchResult.goodReadsBeskBookID = IDValue;
 
 
                 // BUILD RETURN LIST
