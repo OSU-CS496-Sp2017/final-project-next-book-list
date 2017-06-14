@@ -55,7 +55,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 viewBookOnWeb();
                 return true;
             case R.id.action_add_to_list:
-                //addBookToList();
+                addBookToList();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,5 +71,9 @@ public class BookDetailActivity extends AppCompatActivity {
                 startActivity(webIntent);
             }
         }
+    }
+
+    public void addBookToList() {
+
     }
 }

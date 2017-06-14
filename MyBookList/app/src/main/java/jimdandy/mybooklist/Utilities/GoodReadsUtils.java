@@ -216,4 +216,16 @@ public class GoodReadsUtils {
 
         return formattedResultsList;
     }
+
+    public String XMLGetTagValue(Element parentElement, String tagName) {
+        NodeList NodeList = parentElement.getElementsByTagName(tagName);
+        Element tagElement = (Element)NodeList.item(0);
+        Node valueNode = tagElement.getChildNodes().item(0);
+
+        String value = "";
+        if (valueNode != null) {
+            value = String.valueOf(valueNode.getNodeValue());
+        }
+        return value;
+    }
 }
