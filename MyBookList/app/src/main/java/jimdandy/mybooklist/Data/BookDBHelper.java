@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BookDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Book.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
 
     public BookDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,14 +25,14 @@ public class BookDBHelper extends SQLiteOpenHelper {
                         BookContract.FavoriteRepos.COLUMN_TITLE + " TEXT NOT NULL, " +
                         BookContract.FavoriteRepos.COLUMN_AUTHOR + " TEXT NOT NULL, " +
                         BookContract.FavoriteRepos.COLUMN_IMAGE_URL + " TEXT, " +
-                        BookContract.FavoriteRepos.COLUMN_BOOK_URL + " TEXT NOT NULL, " +
-                        //BookContract.FavoriteRepos.COLUMN_RATING + " INTEGER DEFAULT 0, " +
+                        BookContract.FavoriteRepos.COLUMN_BOOK_ID + " TEXT, " +
+                        BookContract.FavoriteRepos.COLUMN_RATING + " INTEGER DEFAULT 0, " +
                         BookContract.FavoriteRepos.COLUMN_TIMESTAMP + " INTEGER DEFAULT 0, " +
 
-                        //BookContract.FavoriteRepos.COLUMN_GOING + " BOOLEAN DEFAULT false, " +
-                        //BookContract.FavoriteRepos.COLUMN_CURRENT + " BOOLEAN DEFAULT false, " +
-                        //BookContract.FavoriteRepos.COLUMN_FUTURE + " BOOLEAN DEFAULT false, " +
-                        ");";
+                        BookContract.FavoriteRepos.COLUMN_GOING + " TEXT NOT NULL, " +
+                        BookContract.FavoriteRepos.COLUMN_CURRENT + " TEXT NOT NULL, " +
+                        BookContract.FavoriteRepos.COLUMN_FUTURE + " TEXT NOT NULL " +
+                        " );";
 
         db.execSQL(SQL_CREATE_FAVORITE_REPOS_TABLE);
     }

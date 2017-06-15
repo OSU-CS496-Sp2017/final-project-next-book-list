@@ -14,8 +14,8 @@ public class BookContract {
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_AUTHOR = "author";
         public static final String COLUMN_IMAGE_URL = "image";
-        public static final String COLUMN_BOOK_URL = "url";
-        public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_BOOK_ID = "BookId";
+        public static final String COLUMN_RATING = "Rating";
         public static final String COLUMN_TIMESTAMP = "TimeStamp";
         public static final String COLUMN_GOING = "going";
         public static final String COLUMN_CURRENT = "current";

@@ -71,8 +71,6 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("LOL");
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //mMainLayout = (View) findViewById(R.id.ll_main);
         mSearchBoxET = (EditText) findViewById(R.id.et_search_box);
@@ -86,8 +84,6 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         mGoodReadsSearchAdapter = new GoodReadsSearchAdapter(this);
         mSearchResultsRV.setAdapter(mGoodReadsSearchAdapter);
 
-        System.out.println("HERE");
-
         /*mMainLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {        //!!
             @Override
             public void onSwipeRight() {
@@ -98,12 +94,8 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
             }
         });*/
 
-        System.out.println("-.-");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);        //!!
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        System.out.println("UMM");
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close);
@@ -121,8 +113,6 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                 }
             }
         });
-
-        System.out.println("SO");
 
         NavigationView navigationView = (NavigationView)findViewById(R.id.nv_navigation_drawer);
         navigationView.setNavigationItemSelectedListener(this);

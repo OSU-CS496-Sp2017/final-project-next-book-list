@@ -19,7 +19,40 @@
             </intent-filter>
         </activity>
         <activity android:name=".BookDetailActivity" />
-        <activity android:name=".BookListActivity"></activity>
+        <activity
+            android:name=".SavedSearchResultsActivity"
+            android:label="@string/current_string"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".GoingToReadResultsActivity"
+            android:label="@string/going_to_string"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+        <activity
+            android:name=".CurrentReadResultsActivity"
+            android:label="@string/current_string"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".FutureReadResultsActivity"
+            android:label="@string/finished_string"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

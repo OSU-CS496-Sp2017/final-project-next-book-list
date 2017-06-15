@@ -55,11 +55,14 @@ public class FutureReadResultsActivity extends AppCompatActivity implements Good
     }
 
     private ArrayList<GoodReadsUtils.SearchResult> getAllSavedSearchResults() {
+        String sqlSelection = BookContract.FavoriteRepos.COLUMN_FUTURE + " = ?";
+        String[] selectionArgs = { "True" };
+
         Cursor cursor = mDB.query(
                 BookContract.FavoriteRepos.TABLE_NAME,
                 null,
-                null,
-                null,
+                sqlSelection,
+                selectionArgs,
                 null,
                 null,
                 BookContract.FavoriteRepos.COLUMN_TIMESTAMP + " DESC"
