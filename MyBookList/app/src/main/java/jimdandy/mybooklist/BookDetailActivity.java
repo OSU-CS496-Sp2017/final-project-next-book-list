@@ -2,21 +2,23 @@ package jimdandy.mybooklist;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import jimdandy.mybooklist.Utilities.GoodReadsUtils;
-import okhttp3.HttpUrl;
 
 public class BookDetailActivity extends AppCompatActivity {
     private TextView mDetailedTitle;
     private TextView mDetailedAuthor;
     private TextView mDetailedPubDate;
     private TextView mDetailedAvgRating;
-    private TextView mDetailedBookImage;
+    private ImageView mDetailedBookImage;
     private GoodReadsUtils.SearchResult mSearchResult;
 
     @Override
@@ -28,7 +30,7 @@ public class BookDetailActivity extends AppCompatActivity {
         mDetailedAuthor = (TextView) findViewById(R.id.tv_book_detail_author);
         mDetailedPubDate = (TextView) findViewById(R.id.tv_book_detail_pub_date);
         mDetailedAvgRating = (TextView) findViewById(R.id.tv_book_detail_avg_rating);
-        mDetailedBookImage = (TextView) findViewById(R.id.tv_book_detail_book_image);
+        mDetailedBookImage = (ImageView) findViewById(R.id.iv_book_detail_book_image);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(GoodReadsUtils.SearchResult.EXTRA_SEARCH_RESULT)) {
@@ -37,8 +39,9 @@ public class BookDetailActivity extends AppCompatActivity {
             mDetailedAuthor.setText(mSearchResult.author);
             mDetailedPubDate.setText(mSearchResult.publicationDate);
             mDetailedAvgRating.setText(mSearchResult.avgRating);
-            mDetailedBookImage.setText(mSearchResult.largeImageURL);
-
+            Glide.with(mDetailedBookImage.getContext())
+                    .load(mSearchResult.largeImageURL)
+                    .into(mDetailedBookImage);
         }
     }
 
