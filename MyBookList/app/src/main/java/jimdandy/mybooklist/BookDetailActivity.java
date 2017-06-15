@@ -1,6 +1,9 @@
 package jimdandy.mybooklist;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import jimdandy.mybooklist.Data.BookContract;
+import jimdandy.mybooklist.Data.BookDBHelper;
 import jimdandy.mybooklist.Utilities.GoodReadsUtils;
 
 public class BookDetailActivity extends AppCompatActivity {
@@ -19,7 +24,11 @@ public class BookDetailActivity extends AppCompatActivity {
     private TextView mDetailedPubDate;
     private TextView mDetailedAvgRating;
     private ImageView mDetailedBookImage;
+    private SQLiteDatabase mDB;
     private GoodReadsUtils.SearchResult mSearchResult;
+    private boolean mGoing = false;
+    private boolean mCurrent = false;
+    private boolean mFuture = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,9 @@ public class BookDetailActivity extends AppCompatActivity {
         mDetailedAvgRating = (TextView) findViewById(R.id.tv_book_detail_avg_rating);
         mDetailedBookImage = (ImageView) findViewById(R.id.iv_book_detail_book_image);
 
+        BookDBHelper dbHelper = new BookDBHelper(this);
+        //mDB = dbHelper.getWritableDatabase();
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(GoodReadsUtils.SearchResult.EXTRA_SEARCH_RESULT)) {
             mSearchResult = (GoodReadsUtils.SearchResult) intent.getSerializableExtra(GoodReadsUtils.SearchResult.EXTRA_SEARCH_RESULT);
@@ -39,10 +51,16 @@ public class BookDetailActivity extends AppCompatActivity {
             mDetailedAuthor.setText(mSearchResult.author);
             mDetailedPubDate.setText(mSearchResult.publicationDate);
             mDetailedAvgRating.setText(mSearchResult.avgRating);
+
             Glide.with(mDetailedBookImage.getContext())
                     .load(mSearchResult.largeImageURL)
                     .into(mDetailedBookImage);
+
+            //checkResultIsInDB();
         }
+
+        //addBookToList();
+
     }
 
     @Override
@@ -76,7 +94,42 @@ public class BookDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void addBookToList() {               //!!
+    private boolean checkResultIsInDB() {
+        boolean isInDB = false;
+        if (mSearchResult != null) {
+            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String[] sqlSelectionArgs = { mSearchResult.title };
+            Cursor cursor = mDB.query(
+                    BookContract.FavoriteRepos.TABLE_NAME,
+                    null,
+                    sqlSelection,
+                    sqlSelectionArgs,
+                    null,
+                    null,
+                    null
+            );
 
+            isInDB = cursor.getCount() > 0;
+            cursor.close();
+        }
+        return isInDB;
+    }
+
+    public void addBookToList() {               //!!
+        if (mSearchResult != null) {
+            ContentValues values = new ContentValues();
+            values.put(BookContract.FavoriteRepos.COLUMN_TITLE, mSearchResult.title);
+            values.put(BookContract.FavoriteRepos.COLUMN_AUTHOR, mSearchResult.author);
+            values.put(BookContract.FavoriteRepos.COLUMN_BOOK_URL, mSearchResult.goodReadsBestBookID);
+            values.put(BookContract.FavoriteRepos.COLUMN_IMAGE_URL, mSearchResult.largeImageURL);
+            values.put(BookContract.FavoriteRepos.COLUMN_RATING, mSearchResult.avgRating);
+            values.put(BookContract.FavoriteRepos.COLUMN_GOING, mGoing);
+            values.put(BookContract.FavoriteRepos.COLUMN_CURRENT, mCurrent);
+            values.put(BookContract.FavoriteRepos.COLUMN_FUTURE, mFuture);
+            mDB.insert(BookContract.FavoriteRepos.TABLE_NAME, null, values);
+            return;
+        } else {
+            return;
+        }
     }
 }

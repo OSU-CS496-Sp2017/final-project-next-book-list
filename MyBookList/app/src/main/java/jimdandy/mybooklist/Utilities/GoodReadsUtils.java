@@ -3,14 +3,12 @@ package jimdandy.mybooklist.Utilities;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import okhttp3.HttpUrl;
 
-import org.xml.sax.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 
@@ -44,7 +42,7 @@ public class GoodReadsUtils {
         public String avgRating;
         public String largeImageURL;
         public String smallImageURL;
-        public String goodReadsBeskBookID;
+        public String goodReadsBestBookID;
 
     }
 
@@ -58,7 +56,7 @@ public class GoodReadsUtils {
     }
 
     public static String buildGoodReadsViewBookOnWebURL(SearchResult searchResult) {
-        String url = GOODREADS_VIEW_BOOK_ON_WEB_BASE_URL + searchResult.goodReadsBeskBookID + "." +
+        String url = GOODREADS_VIEW_BOOK_ON_WEB_BASE_URL + searchResult.goodReadsBestBookID + "." +
                 searchResult.title;
         return url;
     }
@@ -121,7 +119,7 @@ public class GoodReadsUtils {
 
                 //      ID
                 String IDValue = getXMLTagValue(bestBook, "id");
-                searchResult.goodReadsBeskBookID = IDValue;
+                searchResult.goodReadsBestBookID = IDValue;
 
                 // ADD TO RETURN LIST
                 Log.d("UTILS: ", searchResult.title + " by " + searchResult.author +

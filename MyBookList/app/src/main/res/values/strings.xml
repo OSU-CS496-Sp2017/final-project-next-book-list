@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">MyBookList</string>
+
     <string name="app_description">A place for tracking good reads</string>
     <string name="app_error_message">Error loading data. Yikes!</string>
 
+    <string name="go_home">Home</string>
+
+    <string name="going_to_string">Going to read!</string>
+    <string name="current_string">Currently reading!</string>
+    <string name="finished_string">Finished reading!</string>
+
     <string name="action_search_book_on_goodreads">View book on Goodreads</string>
     <string name="action_add_book_to_list">Add book to list</string>
+
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
 </resources>

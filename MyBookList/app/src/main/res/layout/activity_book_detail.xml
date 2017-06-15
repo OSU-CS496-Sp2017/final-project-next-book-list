@@ -54,6 +54,23 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/tv_add_going_to_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/going_to_string"/>
+            <Button
+                android:id="@+id/tv_add_currently_reading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_string"/>
+            <Button
+                android:id="@+id/tv_add_future_reading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finished_string"/>
+
         </LinearLayout>
 
     </LinearLayout>

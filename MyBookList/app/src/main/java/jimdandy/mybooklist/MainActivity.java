@@ -4,17 +4,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,12 +48,15 @@ import jimdandy.mybooklist.Utilities.NetworkUtils;
 
 
 public class MainActivity extends AppCompatActivity
-implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.LoaderCallbacks<String> {
+implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.LoaderCallbacks<String>,
+        NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SEARCH_URL_KEY = "goodReadsURL";
     private static final int GOODREADS_SEARCH_LOADER_ID = 0;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     private RecyclerView mSearchResultsRV;
     private EditText mSearchBoxET;
     private ProgressBar mLoadingIndicatorPB;
@@ -61,7 +69,10 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMainLayout = (View) findViewById(R.id.ll_main);
+        System.out.println("LOL");
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //mMainLayout = (View) findViewById(R.id.ll_main);
         mSearchBoxET = (EditText) findViewById(R.id.et_search_box);
         mLoadingIndicatorPB = (ProgressBar) findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = (TextView) findViewById(R.id.tv_loading_error_message);
@@ -73,7 +84,9 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         mGoodReadsSearchAdapter = new GoodReadsSearchAdapter(this);
         mSearchResultsRV.setAdapter(mGoodReadsSearchAdapter);
 
-        mMainLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {        //!!
+        System.out.println("HERE");
+
+        /*mMainLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {        //!!
             @Override
             public void onSwipeRight() {
                 Log.d(TAG, "SWIPE RIGHT DETECTED");
@@ -81,10 +94,18 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                 startActivity(listIntent);
 
             }
-        });
+        });*/
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);        //!!
-//        getSupportActionBar().setHomeButtonEnabled(true);
+        System.out.println("-.-");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);        //!!
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        System.out.println("UMM");
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         getSupportLoaderManager().initLoader(GOODREADS_SEARCH_LOADER_ID, null, this);
 
@@ -98,6 +119,11 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                 }
             }
         });
+
+        System.out.println("SO");
+
+        NavigationView navigationView = (NavigationView)findViewById(R.id.nv_navigation_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -183,6 +209,34 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
         // nada, nichts, nothing
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        Intent savedResultsIntent;
+
+        switch (item.getItemId()) {
+            case R.id.nav_close:
+                mDrawerLayout.closeDrawers();
+                return true;
+            case R.id.nav_going_to_read:
+                mDrawerLayout.closeDrawers();
+                savedResultsIntent = new Intent(this, GoingToReadResultsActivity.class);
+                startActivity(savedResultsIntent);
+                return true;
+            case R.id.nav_currently_reading:
+                mDrawerLayout.closeDrawers();
+                savedResultsIntent = new Intent(this, CurrentReadResultsActivity.class);
+                startActivity(savedResultsIntent);
+                return true;
+            case R.id.nav_future_reading:
+                mDrawerLayout.closeDrawers();
+                savedResultsIntent = new Intent(this, FutureReadResultsActivity.class);
+                startActivity(savedResultsIntent);
+                return true;
+            default:
+                return false;
+        }
+    }
 }
 
 
