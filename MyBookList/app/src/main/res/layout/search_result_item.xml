@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_search_result"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_search_result_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/iv_search_result_book_image"
+        android:layout_width="79dp"
+        android:layout_height="120dp"
         android:padding="16dp"
-        android:textSize="22dp" />
+        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_search_result_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="22dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_search_result_pub_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="22dp" />
+        <TextView
+            android:id="@+id/tv_search_result_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_search_result_avg_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="22dp" />
+        <TextView
+            android:id="@+id/tv_search_result_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_search_result_book_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="22dp" />
+        <TextView
+            android:id="@+id/tv_search_result_pub_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_search_result_avg_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
