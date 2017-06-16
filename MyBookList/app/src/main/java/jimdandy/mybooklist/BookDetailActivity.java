@@ -377,6 +377,8 @@ public class BookDetailActivity extends AppCompatActivity {
 
             return mDB.insert(BookContract.FavoriteRepos.TABLE_NAME, null, values);
 
+
+
         }
 
         return -1;
@@ -384,6 +386,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void deleteSearchResultFromDB() {
+        setBooleanStrings();
 
         if(mGoing == false && mCurrent == false && mFuture == false) {
             System.out.println("Deleting");
