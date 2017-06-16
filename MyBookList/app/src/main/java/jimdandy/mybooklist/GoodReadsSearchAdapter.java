@@ -4,10 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 
 import jimdandy.mybooklist.Utilities.GoodReadsUtils;
 
@@ -59,7 +61,7 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
         private TextView mAuthor;
         private TextView mPubDate;
         private TextView mAvgRating;
-        private TextView mBookImage;
+        private ImageView mBookImage;
 
 
         public SearchResultViewHolder(View itemView) {      //!!
@@ -68,7 +70,7 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
             mAuthor = (TextView)itemView.findViewById(R.id.tv_search_result_author);
             mPubDate = (TextView)itemView.findViewById(R.id.tv_search_result_pub_date);
             mAvgRating = (TextView)itemView.findViewById(R.id.tv_search_result_avg_rating);
-            mBookImage = (TextView)itemView.findViewById(R.id.tv_search_result_book_image);
+            mBookImage = (ImageView) itemView.findViewById(R.id.iv_search_result_book_image);
 
             mTitle.setOnClickListener(this);
             //searchResultLayout = (LinearLayout) itemView.findViewById(R.id.ll_search_result);
@@ -80,7 +82,10 @@ class GoodReadsSearchAdapter extends RecyclerView.Adapter<GoodReadsSearchAdapter
             mAuthor.setText(searchResult.author);
             mPubDate.setText(searchResult.publicationDate);
             mAvgRating.setText(searchResult.avgRating);
-            mBookImage.setText(searchResult.smallImageURL);
+
+            Glide.with(mBookImage.getContext())
+                    .load(searchResult.largeImageURL)
+                    .into(mBookImage);
         }
 
         @Override

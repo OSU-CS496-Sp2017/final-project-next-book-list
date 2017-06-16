@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/ll_main"
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jimdandy.mybooklist.MainActivity"
+    tools:context="jimdandy.mybooklist.MainActivity">
 
-    android:padding="8sp"
-    android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/et_search_box"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:hint="Search GoodReads..."/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8sp">
 
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find Books"
-        android:textSize="22sp"/>
+            <EditText
+                android:id="@+id/et_search_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:hint="Search GoodReads..."/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_search_results"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Find Books"
+                android:textSize="22sp"/>
 
-        <TextView
-            android:id="@+id/tv_loading_error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:padding="16dp"
-            android:visibility="invisible"
-            android:text="@string/app_error_message" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_search_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:id="@+id/pb_loading_indicator"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_margin="32dp"
-            android:layout_gravity="top|center_horizontal"
-            android:visibility="invisible"/>
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/tv_loading_error_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:padding="16dp"
+                    android:visibility="invisible"
+                    android:text="@string/app_error_message" />
 
+                <ProgressBar
+                    android:id="@+id/pb_loading_indicator"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_margin="32dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:visibility="invisible"/>
+            </FrameLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nv_navigation_drawer"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#fff"
+        app:menu="@menu/navigation_drawer"
+        app:headerLayout="@layout/navigation_drawer_header"/>
+
+</android.support.v4.widget.DrawerLayout>

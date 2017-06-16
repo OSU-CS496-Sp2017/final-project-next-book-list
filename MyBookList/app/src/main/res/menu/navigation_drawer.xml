@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_close"
+        android:title="@string/go_home"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/nav_going_to_read"
+        android:title="@string/going_to_string"
+        android:icon="@drawable/ic_going_to"/>
+    <item
+        android:id="@+id/nav_currently_reading"
+        android:title="@string/current_string"
+        android:icon="@drawable/ic_current"/>
+    <item
+        android:id="@+id/nav_future_reading"
+        android:title="@string/finished_string"
+        android:icon="@drawable/ic_future"/>
+
+</menu>
