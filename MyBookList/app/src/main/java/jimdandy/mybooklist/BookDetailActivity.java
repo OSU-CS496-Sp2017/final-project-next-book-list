@@ -182,10 +182,10 @@ public class BookDetailActivity extends AppCompatActivity {
             case R.id.action_search_goodreads:
                 viewBookOnWeb();
                 return true;
-            case R.id.action_add_to_list:
+            //case R.id.action_add_to_list:
                 //addBookToList();
                 //checkCurrentIsInDB();
-                return true;
+                //return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -19,6 +19,7 @@ public class SavedSearchResultsActivity extends AppCompatActivity implements Goo
     private RecyclerView mSavedSearchResultsRV;
     private SQLiteDatabase mDB;
     private String listPath;
+    private GoodReadsSearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,9 @@ public class SavedSearchResultsActivity extends AppCompatActivity implements Goo
             listPath = "Current";
             System.out.println("Current Path");
 
-
         }
 
-        GoodReadsSearchAdapter adapter = new GoodReadsSearchAdapter(this);
+        adapter = new GoodReadsSearchAdapter(this);
         adapter.updateSearchResults(searchResultsList);
         mSavedSearchResultsRV = (RecyclerView)findViewById(R.id.rv_saved_search_results);
         mSavedSearchResultsRV.setLayoutManager(new LinearLayoutManager(this));
@@ -72,6 +72,17 @@ public class SavedSearchResultsActivity extends AppCompatActivity implements Goo
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra(GoodReadsUtils.SearchResult.EXTRA_SEARCH_RESULT, searchResult);
         startActivity(intent);
+        adapter.updateSearchResults(getUpdate());
+    }
+
+    private ArrayList<GoodReadsUtils.SearchResult> getUpdate(){
+        if(listPath.equals("Going")){
+            return getGoingSavedSearchResults();
+        }else if(listPath.equals("Finished")){
+            return getFinishedSavedSearchResults();
+        }else{
+            return getCurrentSavedSearchResults();
+        }
     }
 
     private ArrayList<GoodReadsUtils.SearchResult> getCurrentSavedSearchResults() {
