@@ -140,7 +140,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
 
 
-        //Sets the True/False
+        //Sets the True/False and button color
         if(checkGoingIsInDB()){
             buttonOne.setBackgroundColor(Color.GREEN);
         }else{
@@ -422,6 +422,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 String[] sqlSelectionArgs = {mSearchResult.title};
                 mDB.delete(BookContract.FavoriteBook.TABLE_NAME, sqlSelection, sqlSelectionArgs);
             }
+
         }else if(checkResultIsInDB() && mSearchResult != null){
 
             String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
