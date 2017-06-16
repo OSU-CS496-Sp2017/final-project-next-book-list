@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public class BookContract {
     private BookContract() {}
 
-    public static class FavoriteRepos implements BaseColumns {
+    public static class FavoriteBook implements BaseColumns {
         public static final String TABLE_NAME = "favoriteBooks";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_AUTHOR = "author";

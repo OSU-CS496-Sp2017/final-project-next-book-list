@@ -230,26 +230,30 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
             case R.id.nav_close:
                 mDrawerLayout.closeDrawers();
                 return true;
+
             case R.id.nav_going_to_read:
                 mDrawerLayout.closeDrawers();
-                savedResultsIntent = new Intent(this, GoingToReadResultsActivity.class);
+                savedResultsIntent = new Intent(this, SavedSearchResultsActivity.class);
+                savedResultsIntent.putExtra("Going", "Going");
                 startActivity(savedResultsIntent);
                 return true;
+
             case R.id.nav_currently_reading:
                 mDrawerLayout.closeDrawers();
-                savedResultsIntent = new Intent(this, CurrentReadResultsActivity.class);
+                savedResultsIntent = new Intent(this, SavedSearchResultsActivity.class);
+                savedResultsIntent.putExtra("Current", "Current");
                 startActivity(savedResultsIntent);
                 return true;
+
             case R.id.nav_future_reading:
                 mDrawerLayout.closeDrawers();
-                savedResultsIntent = new Intent(this, FutureReadResultsActivity.class);
+                savedResultsIntent = new Intent(this, SavedSearchResultsActivity.class);
+                savedResultsIntent.putExtra("Finished", "Finished");
                 startActivity(savedResultsIntent);
                 return true;
+
             default:
                 return false;
         }
     }
 }
-
-
-

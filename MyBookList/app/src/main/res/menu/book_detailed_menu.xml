@@ -9,10 +9,10 @@
         android:title="@string/action_search_book_on_goodreads"
         app:showAsAction="ifRoom" />
 
-    <item
+    <!--<item
         android:id="@+id/action_add_to_list"
         android:icon="@drawable/ic_add_to_list"
         android:title="@string/action_add_book_to_list"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />-->
 
 </menu>
