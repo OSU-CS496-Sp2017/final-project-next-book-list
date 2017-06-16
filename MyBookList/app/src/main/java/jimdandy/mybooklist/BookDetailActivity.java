@@ -385,15 +385,15 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private void deleteSearchResultFromDB() {
 
-        if(!mGoing && !mCurrent && !mFuture) {
+        if(mGoing == false && mCurrent == false && mFuture == false) {
+            System.out.println("Deleting");
+
             if (mSearchResult != null) {
                 String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
                 String[] sqlSelectionArgs = {mSearchResult.title};
                 mDB.delete(BookContract.FavoriteRepos.TABLE_NAME, sqlSelection, sqlSelectionArgs);
             }
         }else if(checkResultIsInDB() && mSearchResult != null){
-
-            System.out.println("Deleting");
 
             String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };

@@ -83,6 +83,9 @@ public class GoingToReadResultsActivity extends AppCompatActivity implements Goo
             searchResult.avgRating = cursor.getString(
                     cursor.getColumnIndex(BookContract.FavoriteRepos.COLUMN_RATING)
             );
+            searchResult.goodReadsBestBookID = cursor.getString(
+                    cursor.getColumnIndex(BookContract.FavoriteRepos.COLUMN_BOOK_ID)
+            );
             searchResultsList.add(searchResult);
         }
         cursor.close();
