@@ -234,6 +234,7 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
                 mDrawerLayout.closeDrawers();
                 savedResultsIntent = new Intent(this, SavedSearchResultsActivity.class);
                 savedResultsIntent.putExtra("Going", "Going");
+                //getResources().ge
                 startActivity(savedResultsIntent);
                 return true;
             case R.id.nav_currently_reading:

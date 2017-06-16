@@ -5,6 +5,7 @@
     <string name="app_error_message">Error loading data. Yikes!</string>
 
     <string name="go_home">Home</string>
+    <string name="list_string"></string>
 
     <string name="going_to_string">Going to read!</string>
     <string name="current_string">Currently reading!</string>

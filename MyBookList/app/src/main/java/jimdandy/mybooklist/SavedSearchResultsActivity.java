@@ -32,16 +32,23 @@ public class SavedSearchResultsActivity extends AppCompatActivity implements Goo
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("Going")) {
+            setTitle(R.string.going_to_string);
             searchResultsList = getGoingSavedSearchResults();
             listPath = "Going";
+            System.out.println("Going Path");
 
         }else if (intent != null && intent.hasExtra("Finished")) {
+            setTitle(R.string.finished_string);
             searchResultsList = getFinishedSavedSearchResults();
             listPath = "Finished";
+            System.out.println("Finished Path");
 
         }else {
+            setTitle(R.string.current_string);
             searchResultsList = getCurrentSavedSearchResults();
             listPath = "Current";
+            System.out.println("Current Path");
+
 
         }
 
@@ -144,7 +151,7 @@ public class SavedSearchResultsActivity extends AppCompatActivity implements Goo
     }
 
     private ArrayList<GoodReadsUtils.SearchResult> getGoingSavedSearchResults() {
-        String sqlSelection = BookContract.FavoriteBook.COLUMN_CURRENT + " = ?";
+        String sqlSelection = BookContract.FavoriteBook.COLUMN_GOING + " = ?";
         String[] selectionArgs = { "True" };
 
         Cursor cursor = mDB.query(

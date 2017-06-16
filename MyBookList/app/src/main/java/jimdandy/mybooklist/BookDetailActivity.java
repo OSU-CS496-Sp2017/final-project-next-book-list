@@ -84,17 +84,17 @@ public class BookDetailActivity extends AppCompatActivity {
                 System.out.println("mGoing end");
 
                 if(mGoing){
-                    //buttonOne.setBackgroundColor(Color.GREEN);
+                    buttonOne.setBackgroundColor(Color.GREEN);
                     addBookToList();
                 }else {
-                    //buttonOne.setBackgroundColor(Color.RED);
+                    buttonOne.setBackgroundColor(Color.RED);
                     deleteSearchResultFromDB();
                 }
 
             }
         });
 
-        Button buttonTwo = (Button) findViewById(R.id.tv_add_currently_reading);
+        final Button buttonTwo = (Button) findViewById(R.id.tv_add_currently_reading);
         buttonTwo.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("mCurrent Start");
@@ -106,15 +106,17 @@ public class BookDetailActivity extends AppCompatActivity {
                 System.out.println("mCurrent End");
 
                 if(mCurrent){
+                    buttonTwo.setBackgroundColor(Color.GREEN);
                     addBookToList();
                 }else {
+                    buttonTwo.setBackgroundColor(Color.RED);
                     deleteSearchResultFromDB();
                 }
 
             }
         });
 
-        Button buttonThree = (Button) findViewById(R.id.tv_add_future_reading);
+        final Button buttonThree = (Button) findViewById(R.id.tv_add_future_reading);
         buttonThree.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("mFuture Start");
@@ -126,8 +128,10 @@ public class BookDetailActivity extends AppCompatActivity {
                 System.out.println("mFuture End");
 
                 if(mFuture){
+                    buttonThree.setBackgroundColor(Color.GREEN);
                     addBookToList();
                 }else {
+                    buttonThree.setBackgroundColor(Color.RED);
                     deleteSearchResultFromDB();
                 }
 
@@ -137,11 +141,23 @@ public class BookDetailActivity extends AppCompatActivity {
 
 
         //Sets the True/False
-        checkGoingIsInDB();
-        checkCurrentIsInDB();
-        checkFinishedIsInDB();
+        if(checkGoingIsInDB()){
+            buttonOne.setBackgroundColor(Color.GREEN);
+        }else{
+            buttonOne.setBackgroundColor(Color.RED);
+        }
 
+        if(checkCurrentIsInDB()){
+            buttonTwo.setBackgroundColor(Color.GREEN);
+        }else{
+            buttonTwo.setBackgroundColor(Color.RED);
+        }
 
+        if(checkFinishedIsInDB()){
+            buttonThree.setBackgroundColor(Color.GREEN);
+        }else{
+            buttonThree.setBackgroundColor(Color.RED);
+        }
 
 
         System.out.println("Start");
@@ -177,9 +193,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
     public void viewBookOnWeb() {
         if (mSearchResult != null) {
-            if(mSearchResult.goodReadsBestBookID == null){
-
-            }
             String url = GoodReadsUtils.buildGoodReadsViewBookOnWebURL(mSearchResult);
             Uri webPage = Uri.parse(url);
             Intent webIntent = new Intent(Intent.ACTION_VIEW, webPage);
@@ -238,8 +251,10 @@ public class BookDetailActivity extends AppCompatActivity {
 
                     if(data.equals("True")){
                         mGoing = true;
+                        isInDB = true;
                     }else{
                         mGoing = false;
+                        isInDB = false;
                     }
 
                 }while(cursor.moveToNext());
@@ -276,8 +291,10 @@ public class BookDetailActivity extends AppCompatActivity {
 
                     if(data.equals("True")){
                         mCurrent = true;
+                        isInDB = true;
                     }else{
                         mCurrent = false;
+                        isInDB = false;
                     }
 
                 }while(cursor.moveToNext());
@@ -318,8 +335,10 @@ public class BookDetailActivity extends AppCompatActivity {
 
                     if(data.equals("True")){
                         mFuture = true;
+                        isInDB = true;
                     } else {
                         mFuture = false;
+                        isInDB = false;
                     }
                 } while (cursor.moveToNext());
             }

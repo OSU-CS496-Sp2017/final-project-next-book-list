@@ -21,7 +21,7 @@
         <activity android:name=".BookDetailActivity" />
         <activity
             android:name=".SavedSearchResultsActivity"
-            android:label="@string/current_string"
+            android:label="@string/list_string"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
