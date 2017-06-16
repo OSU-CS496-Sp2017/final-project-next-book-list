@@ -20,18 +20,18 @@ public class BookDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         final String SQL_CREATE_FAVORITE_REPOS_TABLE =
-                        "CREATE TABLE " + BookContract.FavoriteRepos.TABLE_NAME + " (" +
-                        BookContract.FavoriteRepos._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        BookContract.FavoriteRepos.COLUMN_TITLE + " TEXT NOT NULL, " +
-                        BookContract.FavoriteRepos.COLUMN_AUTHOR + " TEXT NOT NULL, " +
-                        BookContract.FavoriteRepos.COLUMN_IMAGE_URL + " TEXT, " +
-                        BookContract.FavoriteRepos.COLUMN_BOOK_ID + " TEXT, " +
-                        BookContract.FavoriteRepos.COLUMN_RATING + " INTEGER DEFAULT 0, " +
-                        BookContract.FavoriteRepos.COLUMN_TIMESTAMP + " INTEGER DEFAULT 0, " +
+                        "CREATE TABLE " + BookContract.FavoriteBook.TABLE_NAME + " (" +
+                        BookContract.FavoriteBook._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        BookContract.FavoriteBook.COLUMN_TITLE + " TEXT NOT NULL, " +
+                        BookContract.FavoriteBook.COLUMN_AUTHOR + " TEXT NOT NULL, " +
+                        BookContract.FavoriteBook.COLUMN_IMAGE_URL + " TEXT, " +
+                        BookContract.FavoriteBook.COLUMN_BOOK_ID + " TEXT, " +
+                        BookContract.FavoriteBook.COLUMN_RATING + " INTEGER DEFAULT 0, " +
+                        BookContract.FavoriteBook.COLUMN_TIMESTAMP + " INTEGER DEFAULT 0, " +
 
-                        BookContract.FavoriteRepos.COLUMN_GOING + " TEXT NOT NULL, " +
-                        BookContract.FavoriteRepos.COLUMN_CURRENT + " TEXT NOT NULL, " +
-                        BookContract.FavoriteRepos.COLUMN_FUTURE + " TEXT NOT NULL " +
+                        BookContract.FavoriteBook.COLUMN_GOING + " TEXT NOT NULL, " +
+                        BookContract.FavoriteBook.COLUMN_CURRENT + " TEXT NOT NULL, " +
+                        BookContract.FavoriteBook.COLUMN_FUTURE + " TEXT NOT NULL " +
                         " );";
 
         db.execSQL(SQL_CREATE_FAVORITE_REPOS_TABLE);
@@ -39,7 +39,7 @@ public class BookDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + BookContract.FavoriteRepos.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + BookContract.FavoriteBook.TABLE_NAME);
         onCreate(db);
     }
 }

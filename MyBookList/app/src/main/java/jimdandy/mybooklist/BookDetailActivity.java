@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
         }
 
-        Button buttonOne = (Button) findViewById(R.id.tv_add_going_to_read);
+        final Button buttonOne = (Button) findViewById(R.id.tv_add_going_to_read);
         buttonOne.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("mGoing Start");
@@ -83,8 +84,10 @@ public class BookDetailActivity extends AppCompatActivity {
                 System.out.println("mGoing end");
 
                 if(mGoing){
+                    //buttonOne.setBackgroundColor(Color.GREEN);
                     addBookToList();
                 }else {
+                    //buttonOne.setBackgroundColor(Color.RED);
                     deleteSearchResultFromDB();
                 }
 
@@ -136,7 +139,11 @@ public class BookDetailActivity extends AppCompatActivity {
         //Sets the True/False
         checkGoingIsInDB();
         checkCurrentIsInDB();
-        checkFutureIsInDB();
+        checkFinishedIsInDB();
+
+
+
+
         System.out.println("Start");
         System.out.println(mGoing);
         System.out.println(mCurrent);
@@ -185,10 +192,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private boolean checkResultIsInDB() {
         boolean isInDB = false;
         if (mSearchResult != null) {
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             Cursor cursor = mDB.query(
-                    BookContract.FavoriteRepos.TABLE_NAME,
+                    BookContract.FavoriteBook.TABLE_NAME,
                     null,
                     sqlSelection,
                     sqlSelectionArgs,
@@ -209,10 +216,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private boolean checkGoingIsInDB() {
         boolean isInDB = false;
         if (mSearchResult != null) {
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             Cursor cursor = mDB.query(
-                    BookContract.FavoriteRepos.TABLE_NAME,
+                    BookContract.FavoriteBook.TABLE_NAME,
                     null,
                     sqlSelection,
                     sqlSelectionArgs,
@@ -247,10 +254,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private boolean checkCurrentIsInDB() {
         boolean isInDB = false;
         if (mSearchResult != null) {
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             Cursor cursor = mDB.query(
-                    BookContract.FavoriteRepos.TABLE_NAME,
+                    BookContract.FavoriteBook.TABLE_NAME,
                     null,
                     sqlSelection,
                     sqlSelectionArgs,
@@ -282,17 +289,17 @@ public class BookDetailActivity extends AppCompatActivity {
         return isInDB;
     }
 
-    private boolean checkFutureIsInDB() {
+    private boolean checkFinishedIsInDB() {
         boolean isInDB = false;
         System.out.println("GRABBING DATA");
 
 
 
         if (mSearchResult != null) {
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             Cursor cursor = mDB.query(
-                    BookContract.FavoriteRepos.TABLE_NAME,
+                    BookContract.FavoriteBook.TABLE_NAME,
                     null,
                     sqlSelection,
                     sqlSelectionArgs,
@@ -353,29 +360,29 @@ public class BookDetailActivity extends AppCompatActivity {
 
         }else if(checkResultIsInDB() && mSearchResult != null){
 
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             ContentValues values = new ContentValues();
-            values.put(BookContract.FavoriteRepos.COLUMN_GOING, mGoingString);
-            values.put(BookContract.FavoriteRepos.COLUMN_CURRENT, mCurrentString);
-            values.put(BookContract.FavoriteRepos.COLUMN_FUTURE, mFutureString);
-            values.put(BookContract.FavoriteRepos.COLUMN_RATING, mSearchResult.avgRating);
-            return mDB.update(BookContract.FavoriteRepos.TABLE_NAME, values, sqlSelection, sqlSelectionArgs);
+            values.put(BookContract.FavoriteBook.COLUMN_GOING, mGoingString);
+            values.put(BookContract.FavoriteBook.COLUMN_CURRENT, mCurrentString);
+            values.put(BookContract.FavoriteBook.COLUMN_FUTURE, mFutureString);
+            values.put(BookContract.FavoriteBook.COLUMN_RATING, mSearchResult.avgRating);
+            return mDB.update(BookContract.FavoriteBook.TABLE_NAME, values, sqlSelection, sqlSelectionArgs);
 
         } else if (mSearchResult != null) {
 
             ContentValues values = new ContentValues();
-            values.put(BookContract.FavoriteRepos.COLUMN_TITLE, mSearchResult.title);
-            values.put(BookContract.FavoriteRepos.COLUMN_AUTHOR, mSearchResult.author);
-            values.put(BookContract.FavoriteRepos.COLUMN_IMAGE_URL, mSearchResult.largeImageURL);
-            values.put(BookContract.FavoriteRepos.COLUMN_BOOK_ID, mSearchResult.goodReadsBestBookID);
+            values.put(BookContract.FavoriteBook.COLUMN_TITLE, mSearchResult.title);
+            values.put(BookContract.FavoriteBook.COLUMN_AUTHOR, mSearchResult.author);
+            values.put(BookContract.FavoriteBook.COLUMN_IMAGE_URL, mSearchResult.largeImageURL);
+            values.put(BookContract.FavoriteBook.COLUMN_BOOK_ID, mSearchResult.goodReadsBestBookID);
 
-            values.put(BookContract.FavoriteRepos.COLUMN_RATING, mSearchResult.avgRating);
-            values.put(BookContract.FavoriteRepos.COLUMN_GOING, mGoingString);
-            values.put(BookContract.FavoriteRepos.COLUMN_CURRENT, mCurrentString);
-            values.put(BookContract.FavoriteRepos.COLUMN_FUTURE, mFutureString);
+            values.put(BookContract.FavoriteBook.COLUMN_RATING, mSearchResult.avgRating);
+            values.put(BookContract.FavoriteBook.COLUMN_GOING, mGoingString);
+            values.put(BookContract.FavoriteBook.COLUMN_CURRENT, mCurrentString);
+            values.put(BookContract.FavoriteBook.COLUMN_FUTURE, mFutureString);
 
-            return mDB.insert(BookContract.FavoriteRepos.TABLE_NAME, null, values);
+            return mDB.insert(BookContract.FavoriteBook.TABLE_NAME, null, values);
 
 
 
@@ -392,20 +399,20 @@ public class BookDetailActivity extends AppCompatActivity {
             System.out.println("Deleting");
 
             if (mSearchResult != null) {
-                String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+                String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
                 String[] sqlSelectionArgs = {mSearchResult.title};
-                mDB.delete(BookContract.FavoriteRepos.TABLE_NAME, sqlSelection, sqlSelectionArgs);
+                mDB.delete(BookContract.FavoriteBook.TABLE_NAME, sqlSelection, sqlSelectionArgs);
             }
         }else if(checkResultIsInDB() && mSearchResult != null){
 
-            String sqlSelection = BookContract.FavoriteRepos.COLUMN_TITLE + " = ?";
+            String sqlSelection = BookContract.FavoriteBook.COLUMN_TITLE + " = ?";
             String[] sqlSelectionArgs = { mSearchResult.title };
             ContentValues values = new ContentValues();
-            values.put(BookContract.FavoriteRepos.COLUMN_GOING, mGoingString);
-            values.put(BookContract.FavoriteRepos.COLUMN_CURRENT, mCurrentString);
-            values.put(BookContract.FavoriteRepos.COLUMN_FUTURE, mFutureString);
-            values.put(BookContract.FavoriteRepos.COLUMN_RATING, mSearchResult.avgRating);
-            mDB.update(BookContract.FavoriteRepos.TABLE_NAME, values, sqlSelection, sqlSelectionArgs);
+            values.put(BookContract.FavoriteBook.COLUMN_GOING, mGoingString);
+            values.put(BookContract.FavoriteBook.COLUMN_CURRENT, mCurrentString);
+            values.put(BookContract.FavoriteBook.COLUMN_FUTURE, mFutureString);
+            values.put(BookContract.FavoriteBook.COLUMN_RATING, mSearchResult.avgRating);
+            mDB.update(BookContract.FavoriteBook.TABLE_NAME, values, sqlSelection, sqlSelectionArgs);
 
         }
     }
