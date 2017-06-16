@@ -208,7 +208,7 @@ implements GoodReadsSearchAdapter.OnSearchResultClickListener, LoaderManager.Loa
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
             mSearchResultsRV.setVisibility(View.VISIBLE);
             ArrayList<GoodReadsUtils.SearchResult> searchResultsList = GoodReadsUtils.parseGoodReadsSearchResultsXML(data);
-            Log.d(TAG, "FIRST BOOK IN LIST RETURNED: " + searchResultsList.get(0).title + " " + searchResultsList.get(0).author);
+            //Log.d(TAG, "FIRST BOOK IN LIST RETURNED: " + searchResultsList.get(0).title + " " + searchResultsList.get(0).author);
             mGoodReadsSearchAdapter.updateSearchResults(searchResultsList);
         } else {
             mSearchResultsRV.setVisibility(View.INVISIBLE);
